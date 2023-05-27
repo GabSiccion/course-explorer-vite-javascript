@@ -1,7 +1,7 @@
 import { TopBar } from "./components/TopBar";
 import { LoginContext } from "./helper/LoginContext";
 import { useEffect, useState } from "react";
-import { auth, coursesCollectionRef, db } from "./config/Firebase";
+import { auth, coursesCollectionRef } from "./config/firebase";
 import { getDocs, collection, onSnapshot, doc } from "firebase/firestore";
 import "./App.css";
 
@@ -23,6 +23,7 @@ function App() {
           id: doc.id,
         }));
         console.log(courses);
+        setCourseList(courses);
       } catch (err) {
         console.error(err);
       }
