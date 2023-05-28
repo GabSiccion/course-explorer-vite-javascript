@@ -1,8 +1,10 @@
 import { TopBar } from "./components/TopBar";
 import { LoginContext } from "./helper/LoginContext";
-import { useEffect, useState } from "react";
-import { auth, coursesCollectionRef } from "./config/firebase";
-import { getDocs, collection, onSnapshot, doc } from "firebase/firestore";
+import { SelectedCourseContext } from "./helper/SelectedCourseContext";
+import { useState } from "react";
+import { auth, db } from "./config/firebase";
+import { doc, deleteDoc } from "firebase/firestore";
+import { CourseSelection } from "./components/CourseSelection";
 import "./App.css";
 
 function isLoggedIn() {
@@ -14,33 +16,34 @@ function isLoggedIn() {
 }
 
 function App() {
-  useEffect(() => {
-    const getCourseList = async () => {
-      try {
-        const data = await getDocs(coursesCollectionRef);
-        const courses = data.docs.map((doc) => ({
-          courseName: doc.get("courseName"),
-          id: doc.id,
-        }));
-        console.log(courses);
-        setCourseList(courses);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    getCourseList();
-    console.log(courseList);
-  }, []);
-
-  const [courseList, setCourseList] = useState([]);
   const [loginStatus, setLoginStatus] = useState(isLoggedIn());
+  const [selectedCourse, setSelectedCourse] = useState("");
+
+  async function deleteCourse() {
+    try {
+      await deleteDoc(doc(db, "courses", selectedCourse));
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
-      <div>
+      <div className="top-bar">
         <TopBar />
       </div>
+      <SelectedCourseContext.Provider
+        value={{ selectedCourse, setSelectedCourse }}
+      >
+        <div className="course-selection">
+          <CourseSelection />
+        </div>
+        <div className="course-content">
+          <button type="button" onClick={() => deleteCourse()}>
+            Delete
+          </button>
+        </div>
+      </SelectedCourseContext.Provider>
     </LoginContext.Provider>
   );
 }
