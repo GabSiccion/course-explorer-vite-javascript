@@ -1,24 +1,45 @@
 import "./CourseSelection.css";
 import { db, auth, coursesCollectionRef } from "../config/firebase";
-import { onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { addDoc } from "firebase/firestore";
 import { useState, useEffect, useContext } from "react";
 import { SelectedCourseContext } from "../helper/SelectedCourseContext";
-
-const addCourse = async (courseName) => {
-  try {
-    await addDoc(coursesCollectionRef, {
-      courseName: courseName,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 export function CourseSelection() {
   const { selectedCourse, setSelectedCourse } = useContext(
     SelectedCourseContext
   );
+
+  const addCourse = async (courseName) => {
+    try {
+      await addDoc(coursesCollectionRef, {
+        courseName: courseName,
+        courseTexts: ["Course Text placeholder"],
+        courseTracks: [
+          {
+            trackName: "sample track",
+            trackText: "track text",
+            trackTopics: [
+              {
+                topicName: "sample topic name",
+                topicText: "sample topic text",
+                topicURL: "sample URL",
+              },
+            ],
+            trackCareers: [
+              {
+                careerName: "career name sample",
+                careerText: "career text sample",
+                careerSalary: "$1000",
+              },
+            ],
+          },
+        ],
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const selectCourse = (e) => {
     setSelectedCourse(e.target.getAttribute("course-key"));
@@ -40,6 +61,10 @@ export function CourseSelection() {
     getCourseList();
   }, []);
 
+  useEffect(() => {
+    console.log(selectedCourse);
+  }, [selectedCourse]);
+
   const courseButtons = () =>
     courseList.map((course) => {
       const { courseName, id } = course;
@@ -51,7 +76,7 @@ export function CourseSelection() {
           value={courseName}
           onClick={(e) => selectCourse(e)}
         >
-          {courseName}
+          {courseName ? courseName : "No name"}
         </button>
       );
     });

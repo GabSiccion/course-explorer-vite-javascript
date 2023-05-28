@@ -1,10 +1,10 @@
-import { TopBar } from "./components/TopBar";
 import { LoginContext } from "./helper/LoginContext";
 import { SelectedCourseContext } from "./helper/SelectedCourseContext";
 import { useState } from "react";
 import { auth, db } from "./config/firebase";
-import { doc, deleteDoc } from "firebase/firestore";
+import { TopBar } from "./components/TopBar";
 import { CourseSelection } from "./components/CourseSelection";
+import { CourseContent } from "./components/CourseContent";
 import "./App.css";
 
 function isLoggedIn() {
@@ -19,14 +19,6 @@ function App() {
   const [loginStatus, setLoginStatus] = useState(isLoggedIn());
   const [selectedCourse, setSelectedCourse] = useState("");
 
-  async function deleteCourse() {
-    try {
-      await deleteDoc(doc(db, "courses", selectedCourse));
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   return (
     <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
       <div className="top-bar">
@@ -39,9 +31,7 @@ function App() {
           <CourseSelection />
         </div>
         <div className="course-content">
-          <button type="button" onClick={() => deleteCourse()}>
-            Delete
-          </button>
+          <CourseContent />
         </div>
       </SelectedCourseContext.Provider>
     </LoginContext.Provider>
