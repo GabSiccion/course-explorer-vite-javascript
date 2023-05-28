@@ -1,7 +1,7 @@
 import { LoginContext } from "./helper/LoginContext";
 import { SelectedCourseContext } from "./helper/SelectedCourseContext";
 import { useState } from "react";
-import { auth, db } from "./config/firebase";
+import { auth, db } from "./config/Firebase";
 import { TopBar } from "./components/TopBar";
 import { CourseSelection } from "./components/CourseSelection";
 import { CourseContent } from "./components/CourseContent";

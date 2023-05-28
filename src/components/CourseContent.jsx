@@ -3,7 +3,7 @@ import { SelectedCourseContext } from "../helper/SelectedCourseContext";
 import { useContext, useEffect, useState } from "react";
 import { findDOMNode } from "react-dom";
 import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db } from "../config/Firebase";
 
 export function CourseContent() {
   const { selectedCourse, setSelectedCourse } = useContext(
