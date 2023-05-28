@@ -14,19 +14,77 @@ export function CourseSelection() {
     try {
       await addDoc(coursesCollectionRef, {
         courseName: courseName,
-        courseTexts: ["Course Text placeholder"],
+        courseTexts: "course text goes here",
         courseTracks: [
           {
-            trackName: "sample track",
+            trackName: "Course Track 1",
             trackText: "track text",
             trackTopics: [
               {
-                topicName: "sample topic name",
+                topicName: "Topic name 1",
+                topicText: "sample topic text",
+                topicURL: "sample URL",
+              },
+              {
+                topicName: "Topic name 2",
+                topicText: "sample topic text",
+                topicURL: "sample URL",
+              },
+              {
+                topicName: "Topic name 3",
+                topicText: "sample topic text",
+                topicURL: "sample URL",
+              },
+              {
+                topicName: "Topic name 4",
                 topicText: "sample topic text",
                 topicURL: "sample URL",
               },
             ],
             trackCareers: [
+              {
+                careerName: "career name sample",
+                careerText: "career text sample",
+                careerSalary: "$1000",
+              },
+              {
+                careerName: "career name sample",
+                careerText: "career text sample",
+                careerSalary: "$1000",
+              },
+            ],
+          },
+          {
+            trackName: "Course Track 2",
+            trackText: "track text",
+            trackTopics: [
+              {
+                topicName: "Topic name 1",
+                topicText: "sample topic text",
+                topicURL: "sample URL",
+              },
+              {
+                topicName: "Topic name 2",
+                topicText: "sample topic text",
+                topicURL: "sample URL",
+              },
+              {
+                topicName: "Topic name 3",
+                topicText: "sample topic text",
+                topicURL: "sample URL",
+              },
+              {
+                topicName: "Topic name 4",
+                topicText: "sample topic text",
+                topicURL: "sample URL",
+              },
+            ],
+            trackCareers: [
+              {
+                careerName: "career name sample",
+                careerText: "career text sample",
+                careerSalary: "$1000",
+              },
               {
                 careerName: "career name sample",
                 careerText: "career text sample",
@@ -60,10 +118,6 @@ export function CourseSelection() {
     };
     getCourseList();
   }, []);
-
-  useEffect(() => {
-    console.log(selectedCourse);
-  }, [selectedCourse]);
 
   const courseButtons = () =>
     courseList.map((course) => {
