@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { auth } from "../config/firebase";
+import { auth } from "../config/Firebase";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import "./TopBar.css";
 import { LoginContext } from "../helper/LoginContext";
