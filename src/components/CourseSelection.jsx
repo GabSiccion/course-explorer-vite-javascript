@@ -1,5 +1,5 @@
 import "./CourseSelection.css";
-import { db, auth, coursesCollectionRef } from "../config/firebase";
+import { db, auth, coursesCollectionRef } from "../config/Firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { addDoc } from "firebase/firestore";
 import { useState, useEffect, useContext } from "react";
