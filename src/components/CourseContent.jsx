@@ -1,9 +1,12 @@
 import "./CourseContent.css";
 import { SelectedCourseContext } from "../helper/SelectedCourseContext";
 import { useContext, useEffect, useState } from "react";
-import { findDOMNode } from "react-dom";
 import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "../config/Firebase";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function CourseContent() {
   const { selectedCourse, setSelectedCourse } = useContext(
@@ -14,6 +17,12 @@ export function CourseContent() {
   const updateCourseName = async (e) => {
     await updateDoc(doc(db, "courses", selectedCourse), {
       courseName: e.target.textContent,
+    });
+  };
+
+  const updateCourseText = async (e) => {
+    await updateDoc(doc(db, "courses", selectedCourse), {
+      courseTexts: e.target.textContent,
     });
   };
 
@@ -166,6 +175,7 @@ export function CourseContent() {
               suppressContentEditableWarning={true}
               contentEditable="true"
               onKeyDown={(e) => tryToPreventNewLines(e)}
+              onBlur={(e) => updateCourseText(e)}
             >
               {courseData.get("courseTexts")}
             </p>
