@@ -24,16 +24,6 @@ function App() {
       <div className="top-bar">
         <TopBar />
       </div>
-      <SelectedCourseContext.Provider
-        value={{ selectedCourse, setSelectedCourse }}
-      >
-        <div className="course-selection">
-          <CourseSelection />
-        </div>
-        <div className="course-content">
-          <CourseContent />
-        </div>
-      </SelectedCourseContext.Provider>
     </LoginContext.Provider>
   );
 }
