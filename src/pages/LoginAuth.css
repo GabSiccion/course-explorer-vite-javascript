@@ -9,8 +9,12 @@
   justify-content: space-between;
 }
 
-#root {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+.centered {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-background-image {
@@ -39,14 +43,6 @@
   margin-top: 1px;
 }
 
-.centered {
-  width: inherit;
-  height: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .p1 {
   width: 100%;
   font-size: 2rem;
@@ -57,19 +53,4 @@
 .login-container > .popup-text {
   color: rgb(255, 82, 82);
   font-weight: 700;
-}
-
-/*global button styles*/
-button {
-  box-shadow: 0px 10px 14px -7px #3e7327;
-  background-color: #77b55a;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  color: #ffffff;
-  font-weight: bold;
-}
-
-button:hover {
-  background: linear-gradient(to bottom, #5a8047 5%, #d1e6c7 100%);
 }

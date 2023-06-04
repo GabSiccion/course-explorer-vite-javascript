@@ -2,32 +2,10 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.login-background-image {
-  background-image: url("https://i.imgur.com/mIL4tqE.jpg");
-  background-size: cover;
-  background-position: center;
-}
-
-.login-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
-  flex-direction: column;
-  border-radius: 20px;
-  padding: 50px 50px 50px 50px;
-  background-color: white;
-}
-.centered {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.p1 {
-  font-size: 2rem;
+.app {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /*global button styles*/

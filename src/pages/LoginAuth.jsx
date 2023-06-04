@@ -4,7 +4,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import "./LoginAuth.css";
 import { LoginContext } from "../helper/LoginContext";
 import { Navigate } from "react-router-dom";
-import { FirebaseError } from "firebase/app";
 
 export function LoginAuth() {
   const popupRef = useRef();
