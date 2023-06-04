@@ -2,9 +2,12 @@ import { LoginContext } from "./helper/LoginContext";
 import { useState } from "react";
 import { auth } from "./config/Firebase";
 import { LoginAuth } from "./pages/LoginAuth";
-import { CourseEditor } from "./pages/CourseEditor";
+import { CourseExplorerEditor } from "./pages/CourseExplorerEditor";
 import "./App.css";
-import { Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import { AccountManagement } from "./components/AccountManagement";
+import { CourseContent } from "./components/CourseContent";
+import { CourseAnalytics } from "./components/CourseAnalytics";
 
 function isLoggedIn() {
   if (auth.currentUser) {
@@ -23,11 +26,16 @@ function App() {
       <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
         <Routes>
           <Route path="/" element={<LoginAuth />} />
-          <Route path="/CourseEditor" element={<CourseEditor />} />
+          <Route path="/course_editor" element={<CourseExplorerEditor />}>
+            <Route path="course_analytics" element={<CourseAnalytics />} />
+            <Route path="course_content" element={<CourseContent />} />
+            <Route path="account_management" element={<AccountManagement />} />
+          </Route>
         </Routes>
       </LoginContext.Provider>
     </div>
   );
+
   /* return (
     <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
       <div className="top-bar">
