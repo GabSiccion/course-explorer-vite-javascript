@@ -23,7 +23,7 @@ function App() {
       <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
         <Routes>
           <Route path="/" element={<LoginAuth />} />
-          <Route path="/editor" element={<CourseEditor />} />
+          <Route path="/CourseEditor" element={<CourseEditor />} />
         </Routes>
       </LoginContext.Provider>
     </div>
