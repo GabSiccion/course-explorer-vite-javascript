@@ -31,7 +31,10 @@ export function LoginAuth() {
       <div className="Auth-container">
         <div className="login-background-image centered">
           <div className="login-container">
-            <p className="p1">Course Explorer Admin</p>
+            <p className="p1">
+              Course Explorer <br />
+              Admin
+            </p>
             <input
               placeholder="Email..."
               onChange={(e) => setEmail(e.target.value)}
