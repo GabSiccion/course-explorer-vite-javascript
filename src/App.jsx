@@ -1,11 +1,10 @@
 import { LoginContext } from "./helper/LoginContext";
-import { SelectedCourseContext } from "./helper/SelectedCourseContext";
 import { useState } from "react";
-import { auth, db } from "./config/Firebase";
-import { TopBar } from "./components/TopBar";
-import { CourseSelection } from "./components/CourseSelection";
-import { CourseContent } from "./components/CourseContent";
+import { auth } from "./config/Firebase";
+import { LoginAuth } from "./pages/LoginAuth";
+import { CourseEditor } from "./pages/CourseEditor";
 import "./App.css";
+import { Router, Route, Routes } from "react-router-dom";
 
 function isLoggedIn() {
   if (auth.currentUser) {
@@ -20,9 +19,19 @@ function App() {
   const [selectedCourse, setSelectedCourse] = useState("");
 
   return (
+    <div className="app">
+      <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
+        <Routes>
+          <Route path="/" element={<LoginAuth />} />
+          <Route path="/editor" element={<CourseEditor />} />
+        </Routes>
+      </LoginContext.Provider>
+    </div>
+  );
+  /* return (
     <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
       <div className="top-bar">
-        <TopBar />
+        <LoginAuth />
       </div>
       <SelectedCourseContext.Provider
         value={{ selectedCourse, setSelectedCourse }}
@@ -35,7 +44,7 @@ function App() {
         </div>
       </SelectedCourseContext.Provider>
     </LoginContext.Provider>
-  );
+  ); */
 }
 
 export default App;

@@ -1,3 +1,45 @@
 #root {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.login-background-image {
+  background-image: url("https://i.imgur.com/mIL4tqE.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 50px 50px 50px 50px;
+  background-color: white;
+}
+.centered {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p1 {
+  font-size: 2rem;
+}
+
+/*global button styles*/
+button {
+  box-shadow: 0px 10px 14px -7px #3e7327;
+  background-color: #77b55a;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  font-weight: bold;
+}
+button:hover {
+  background: linear-gradient(to bottom, #5a8047 5%, #d1e6c7 100%);
+}
