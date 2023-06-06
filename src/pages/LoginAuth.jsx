@@ -20,19 +20,8 @@ export function LoginAuth() {
       });
     } catch (err) {
       console.error(err);
-      seterror("Failed to Login");
+      seterror("Invalid login credentials.");
     }
-  };
-
-  const logout = async () => {
-    try {
-      await signOut(auth).then(() => {
-        setLoginStatus(false);
-      });
-    } catch (err) {
-      console.error(auth);
-    }
-    console.log(loginStatus);
   };
 
   if (loginStatus) {

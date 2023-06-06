@@ -2,10 +2,21 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+body {
+  background-color: #424242;
+}
+
 .app {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
 }
 
 /*global button styles*/
