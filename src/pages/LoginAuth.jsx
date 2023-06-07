@@ -25,7 +25,7 @@ export function LoginAuth() {
   };
 
   if (loginStatus) {
-    return <Navigate to="/course_editor" />;
+    return <Navigate to="/course_editor/dashboard" />;
   } else {
     return (
       <div className="Auth-container">

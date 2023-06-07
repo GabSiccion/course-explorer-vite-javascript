@@ -8,6 +8,7 @@
 }
 
 .course-d1 {
+  margin-left: 0px;
   font-size: 32px;
   font-weight: 700;
 }
@@ -24,6 +25,18 @@
 }
 
 .track-topic-container {
+  padding: 8px;
+  margin-right: 8px;
+  border: solid black 1px;
+}
+
+.careers-list-container {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.track-career-container {
   padding: 8px;
   margin-right: 8px;
   border: solid black 1px;

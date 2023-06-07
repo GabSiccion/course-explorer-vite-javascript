@@ -7,7 +7,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { AccountManagement } from "./components/AccountManagement";
 import { CourseContent } from "./components/CourseContent";
-import { CourseAnalytics } from "./components/CourseAnalytics";
+import { Dashboard } from "./components/Dashboard";
 
 function isLoggedIn() {
   if (auth.currentUser) {
@@ -19,15 +19,13 @@ function isLoggedIn() {
 
 function App() {
   const [loginStatus, setLoginStatus] = useState(isLoggedIn());
-  const [selectedCourse, setSelectedCourse] = useState("");
-
   return (
     <div className="app">
       <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
         <Routes>
           <Route path="/" element={<LoginAuth />} />
           <Route path="/course_editor" element={<CourseExplorerEditor />}>
-            <Route path="course_analytics" element={<CourseAnalytics />} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="course_content" element={<CourseContent />} />
             <Route path="account_management" element={<AccountManagement />} />
           </Route>

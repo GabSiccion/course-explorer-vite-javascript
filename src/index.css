@@ -2,21 +2,24 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#root * {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #424242;
 }
 
 .app {
+  width: 100%;
   position: absolute;
   top: 0;
   left: 0;
 }
 
 .page-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
+  width: 100%;
+  color: white;
 }
 
 /*global button styles*/
@@ -31,4 +34,8 @@ button {
 }
 button:hover {
   background: linear-gradient(to bottom, #5a8047 5%, #d1e6c7 100%);
+}
+
+.container {
+  max-width: 1200px;
 }

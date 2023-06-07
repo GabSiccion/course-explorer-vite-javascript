@@ -42,20 +42,20 @@ export function Navbar() {
               </Link>
             </li>
             <li key="1" className="nav-text">
-              <Link to="course_analytics">
-                <IoIcons.IoMdPeople />
-                <span>Analytics</span>
+              <Link to="dashboard">
+                <IoIcons.IoMdHome />
+                <span>Dashboard</span>
               </Link>
             </li>
             <li key="2" className="nav-text">
               <Link to="course_content">
-                <IoIcons.IoMdPeople />
+                <IoIcons.IoMdBook />
                 <span>Courses</span>
               </Link>
             </li>
             <li key="3" className="nav-text">
               <Link to="account_management">
-                <IoIcons.IoMdPeople />
+                <IoIcons.IoMdLock />
                 <span>Accounts</span>
               </Link>
             </li>

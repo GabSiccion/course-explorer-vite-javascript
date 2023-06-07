@@ -1,6 +1,6 @@
 /* Navbar CSS */
 .navbar {
-  width: 100vw;
+  width: 100%;
   background-color: #ffffff;
   height: 64px;
   display: flex;
@@ -41,6 +41,11 @@
   height: 60px;
 }
 
+.nav-text svg {
+  height: 30px;
+  width: auto;
+}
+
 .nav-text a {
   text-decoration: none;
   color: #151414;
@@ -60,6 +65,7 @@
 
 .nav-menu-items {
   width: 100%;
+  padding-left: 20px;
 }
 
 .navbar-toggle {

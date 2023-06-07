@@ -1,27 +1,28 @@
 import "./CourseContent.css";
 import { SelectedCourseContext } from "../helper/SelectedCourseContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "../config/Firebase";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export function CourseContent1() {
+export function CourseEditor() {
+  const tracksWrapper = useRef(null);
+
   const { selectedCourse, setSelectedCourse } = useContext(
     SelectedCourseContext
   );
   const [courseData, setCourseData] = useState({});
 
   const updateCourseName = async (e) => {
-    await updateDoc(doc(db, "courses", selectedCourse), {
+    updateDoc(doc(db, "courses", selectedCourse), {
       courseName: e.target.textContent,
     });
   };
 
   const updateCourseText = async (e) => {
-    await updateDoc(doc(db, "courses", selectedCourse), {
+    updateDoc(doc(db, "courses", selectedCourse), {
       courseTexts: e.target.textContent,
     });
   };
@@ -45,12 +46,62 @@ export function CourseContent1() {
     return true;
   }
 
-  function updateCourse() {
-    //get track children
-    let tracksParentContainer = document.getElementsByClassName(
-      "course-tracks-wrapper"
-    );
-    console.log(tracksParentContainer.childNodes);
+  async function updateTracks() {
+    const getTracks = () => {
+      let trackObjects = [];
+      const tracks = Array.from(tracksWrapper.current.children);
+      tracks.map((track) => {
+        let trackName = track.getElementsByClassName("track-name")[0].innerText;
+        let trackText = track.getElementsByClassName("track-text")[0].innerText;
+
+        let trackCareersArray = Array.from(
+          track.getElementsByClassName("track-career-container")
+        );
+        let trackCareers = trackCareersArray.map((career) => {
+          let careerName =
+            career.getElementsByClassName("career-name")[0].innerText;
+          let careerText =
+            career.getElementsByClassName("career-text")[0].innerText;
+          let careerSalary =
+            career.getElementsByClassName("career-salary")[0].innerText;
+          return {
+            careerName: careerName,
+            careerText: careerText,
+            careerSalary: careerSalary,
+          };
+        });
+
+        let trackTopicsArray = Array.from(
+          track.getElementsByClassName("track-topic-container")
+        );
+        let trackTopics = trackTopicsArray.map((topic) => {
+          let topicName =
+            topic.getElementsByClassName("topic-name")[0].innerText;
+          let topicText =
+            topic.getElementsByClassName("topic-text")[0].innerText;
+          let topicURL =
+            topic.getElementsByClassName("topic-link")[0].innerText;
+          return {
+            topicName: topicName,
+            topicText: topicText,
+            topicURL: topicURL,
+          };
+        });
+
+        let object = {
+          trackName: trackName,
+          trackText: trackText,
+          trackCareers: trackCareers,
+          trackTopics: trackTopics,
+        };
+        trackObjects.push(object);
+      });
+      return trackObjects;
+    };
+    updateDoc(doc(db, "courses", selectedCourse), {
+      courseTracks: getTracks(),
+    });
+    console.log(getTracks());
   }
 
   useEffect(() => {
@@ -136,10 +187,18 @@ export function CourseContent1() {
 
       return (
         <div className="course-track">
-          <h3 suppressContentEditableWarning={true} contentEditable="true">
+          <h3
+            suppressContentEditableWarning={true}
+            contentEditable="true"
+            className="track-name"
+          >
             {track["trackName"]}
           </h3>
-          <p suppressContentEditableWarning={true} contentEditable="true">
+          <p
+            suppressContentEditableWarning={true}
+            contentEditable="true"
+            className="track-text"
+          >
             {track["trackText"]}
           </p>
 
@@ -166,7 +225,7 @@ export function CourseContent1() {
               className="delete-course-button"
               onClick={() => deleteCourse()}
             >
-              x
+              X
             </span>
           </div>
           <h2>Course Texts</h2>
@@ -181,8 +240,12 @@ export function CourseContent1() {
             </p>
           </div>
           <h2>Course Tracks</h2>
-          <div className="course-tracks-wrapper">{courseTracks}</div>
-          <button className="update-course-button">Update</button>
+          <div className="course-tracks-wrapper" ref={tracksWrapper}>
+            {courseTracks}
+          </div>
+          <button className="update-course-button" onClick={updateTracks}>
+            Update
+          </button>
         </div>
       </>
     );
