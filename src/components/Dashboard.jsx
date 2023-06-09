@@ -46,10 +46,11 @@ export function Dashboard() {
   }, []);
 
   //DISTRIBUTION CHART
-  const pie = () => {
+
+  let pies = courseList.map((course) => {
     let courseScores = [];
     scores.map((score) => {
-      if (score["course"] === "Information Technology") {
+      if (score["course"] === course) {
         courseScores.push(score["recommendation"]);
       }
     });
@@ -97,12 +98,16 @@ export function Dashboard() {
         },
       ],
     };
-    return distributionData;
-  };
+    return (
+      <div className="col-6">
+        <Pie data={distributionData} />
+      </div>
+    );
+  });
 
   return (
-    <div className="container mt-4">
-      <Pie data={pie()} />
+    <div className="container mt-4 row justify-content-center align-items-center">
+      {pies}
     </div>
   );
 }
