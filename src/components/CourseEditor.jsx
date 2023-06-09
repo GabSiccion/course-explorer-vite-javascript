@@ -1,9 +1,9 @@
 import { SelectedCourseContext } from "../helper/SelectedCourseContext";
 import { useContext, useEffect, useState, useRef } from "react";
-import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc, updateDoc, addDoc } from "firebase/firestore";
 import { auth, db } from "../config/Firebase";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Button, Card, Col, Row, Container } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -46,6 +46,24 @@ export function CourseEditor() {
     }
     return true;
   }
+
+  const addNewCareer = async (e) => {
+    const careerObject = {
+      careerName: "Career title",
+      careerSalary: "$0",
+      careerText: "Career description",
+    };
+    let index = parseInt(e.getAttribute("trackIndex"));
+  };
+
+  const addNewTopic = async (e) => {
+    const careerObject = {
+      careerName: "Career title",
+      careerSalary: "$0",
+      careerText: "Career description",
+    };
+    let index = parseInt(e.getAttribute("trackIndex"));
+  };
 
   async function updateTracks() {
     const getTracks = () => {
@@ -165,7 +183,7 @@ export function CourseEditor() {
       let trackCareers = track["trackCareers"];
       trackCareers = trackCareers.map((career, index) => {
         return (
-          <div className="track-career-container">
+          <div className="track-career-container col-6">
             <p className="label fs-6">Career {index + 1}</p>
             <p
               suppressContentEditableWarning={true}
@@ -212,11 +230,25 @@ export function CourseEditor() {
           </p>
 
           <div className="tracks-list-container">
-            <p className="label fs-4">Tracks topics</p>
+            <p className="label fs-4">
+              Tracks topics
+              <span>
+                <Button trackIndex={trackIndex} variant="success">
+                  +
+                </Button>
+              </span>
+            </p>
             <div className="row">{trackTopics}</div>
           </div>
-          <p className="fs-4 label">Track careers</p>
-          <div className="careers-list-container">{trackCareers}</div>
+          <p className="fs-4 label">
+            Track careers
+            <span>
+              <Button trackIndex={trackIndex} variant="success">
+                +
+              </Button>
+            </span>
+          </p>
+          <div className="careers-list-container row">{trackCareers}</div>
         </div>
       );
     });
