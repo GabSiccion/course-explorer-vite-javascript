@@ -94,6 +94,162 @@ export function CourseSelection() {
             ],
           },
         ],
+        courseQuestions: [
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+          {
+            choices: {
+              a: "choice a",
+              b: "choice b",
+              c: "choice c",
+              d: "choice d",
+            },
+            correctchoice: "a",
+            question: "Question to be answered",
+            track: "track of the question",
+          },
+        ],
       });
     } catch (error) {
       console.error(error);

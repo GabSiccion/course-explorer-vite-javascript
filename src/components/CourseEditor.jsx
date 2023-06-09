@@ -9,11 +9,8 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 import { auth, db } from "../config/Firebase";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function CourseEditor() {
   const tracksWrapper = useRef(null);
@@ -97,7 +94,6 @@ export function CourseEditor() {
             topicURL: topicURL,
           };
         });
-        console.log(trackTopics);
         let object = {
           trackName: trackName,
           trackText: trackText,
@@ -106,7 +102,6 @@ export function CourseEditor() {
         };
         trackObjects.push(object);
       });
-      console.log(trackObjects);
       return trackObjects;
     };
 
@@ -124,7 +119,6 @@ export function CourseEditor() {
       const courseData = await getDoc(doc(db, "courses", selectedCourse));
       if (courseData.data != undefined) {
         setCourseData(courseData);
-        console.log(courseData);
       } else {
         console.log("no data");
       }

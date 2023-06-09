@@ -54,12 +54,18 @@ export function Navbar() {
               </Link>
             </li>
             <li key="3" className="nav-text">
+              <Link to="quiz_content">
+                <IoIcons.IoMdSchool />
+                <span>Quizes</span>
+              </Link>
+            </li>
+            <li key="4" className="nav-text">
               <Link to="account_management">
                 <IoIcons.IoMdLock />
                 <span>Accounts</span>
               </Link>
             </li>
-            <li key="4" className="nav-text">
+            <li key="5" className="nav-text">
               <Link to="#" onClick={logout}>
                 <IoIcons.IoIosLogOut />
                 <span>Logout</span>

@@ -2,9 +2,9 @@ import "../index.css";
 import { CourseSelection } from "./CourseSelection";
 import { SelectedCourseContext } from "../helper/SelectedCourseContext";
 import { useState } from "react";
-import { CourseEditor } from "./CourseEditor";
+import { QuizEditor } from "./QuizEditor";
 
-export function CourseContent() {
+export function QuizContent() {
   const [selectedCourse, setSelectedCourse] = useState("");
   return (
     <SelectedCourseContext.Provider
@@ -15,7 +15,7 @@ export function CourseContent() {
           <CourseSelection />
         </div>
         <div className="container">
-          <CourseEditor />
+          <QuizEditor />
         </div>
       </div>
     </SelectedCourseContext.Provider>
