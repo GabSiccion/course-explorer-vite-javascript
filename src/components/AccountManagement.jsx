@@ -7,14 +7,17 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 
 export function AccountManagement() {
   return (
-    <>
-      <CreateNewUser />
-      <ChangePassword />
-      <VerifyEmail />
-    </>
+    <div className="container">
+      <div className="row mt-4">
+        <CreateNewUser />
+        <ChangePassword />
+        <VerifyEmail />
+      </div>
+    </div>
   );
 }
 
@@ -59,27 +62,32 @@ function CreateNewUser() {
   };
 
   return (
-    <div className="sign-up-container">
+    <div className="sign-up-container pt-4 pb-4 col-4 border border-white rounded">
       <h2>New Account</h2>
       <input
+        className="mt-1 mb-1"
         placeholder="Email"
         type="text"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
+        className="mt-1 mb-1"
         placeholder="Password"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <input
+        className="mt-1 mb-1"
         placeholder="Confirm Password"
         type="password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-      <button onClick={signUpNewUser}>Create Account</button>
+      <Button className="mt-1" variant="success" onClick={signUpNewUser}>
+        Create Account
+      </Button>
     </div>
   );
 }
@@ -105,21 +113,25 @@ function ChangePassword() {
   };
 
   return (
-    <div className="change-password-container">
+    <div className="change-password-container pt-4 pb-4 col-4 border border-white rounded">
       <h2>Update Password</h2>
       <input
+        className="mt-1 mb-1"
         placeholder="New Password"
         type="password"
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
       />
       <input
+        className="mt-1 mb-1"
         placeholder="Confirm New Password"
         type="password"
         value={confirmNewPassword}
         onChange={(e) => setConfirmNewPassword(e.target.value)}
       />
-      <button onClick={UpdatePassword}>Change Password</button>
+      <Button className="mt-1" variant="success" onClick={UpdatePassword}>
+        Change Password
+      </Button>
     </div>
   );
 }
@@ -135,14 +147,16 @@ function VerifyEmail() {
 
   if (user.emailVerified) {
     return (
-      <div className="verify-email-container">
+      <div className="verify-email-container pt-4 pb-4 col-4 border border-white rounded">
         <h2>Email Verified</h2>
       </div>
     );
   } else {
     return (
-      <div className="verify-email-container">
-        <button onClick={SendEmailVerification}>Verify Email</button>
+      <div className="verify-email-container mt-4 mb-4 col-4 border border-white rounded">
+        <Button variant="success" onClick={SendEmailVerification}>
+          Verify Email
+        </Button>
       </div>
     );
   }

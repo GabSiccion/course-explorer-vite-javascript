@@ -1,9 +1,10 @@
-import "./CourseContent.css";
 import { SelectedCourseContext } from "../helper/SelectedCourseContext";
 import { useContext, useEffect, useState, useRef } from "react";
 import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../config/Firebase";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Button, Card, Col, Row, Container } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -123,36 +124,37 @@ export function CourseEditor() {
   if (Object.keys(courseData).length === 0 || selectedCourse === "") {
     return (
       <>
-        <div className="course-content-wrapper">
-          <span className="course-name">Select a course to edit.</span>
+        <div className="course-content-wrapper mt-4">
+          <p className="course-name fs-1">Select a course to edit.</p>
         </div>
       </>
     );
   } else {
     let courseTracks = courseData.get("courseTracks");
-    courseTracks = courseTracks.map((track) => {
+    courseTracks = courseTracks.map((track, trackIndex) => {
       let trackTopics = track["trackTopics"];
-      trackTopics = trackTopics.map((topic) => {
+      trackTopics = trackTopics.map((topic, index) => {
         return (
-          <div className="track-topic-container">
-            <h4
-              suppressContentEditableWarning={true}
-              contentEditable="true"
-              className="topic-name"
-            >
-              {topic["topicName"]}
-            </h4>
+          <div className="topic-container col-6">
+            <p className="label fs-6">Topic {index + 1}</p>
             <p
               suppressContentEditableWarning={true}
               contentEditable="true"
-              className="topic-text"
+              className="topic-name border border-white rounded p-2 mb-2"
+            >
+              {topic["topicName"]}
+            </p>
+            <p
+              suppressContentEditableWarning={true}
+              contentEditable="true"
+              className="topic-text border border-white rounded p-2 mb-2"
             >
               {topic["topicText"]}
             </p>
             <p
               suppressContentEditableWarning={true}
               contentEditable="true"
-              className="topic-link"
+              className="topic-link border border-white rounded p-2 mb-2"
             >
               {topic["topicURL"]}
             </p>
@@ -161,27 +163,28 @@ export function CourseEditor() {
       });
 
       let trackCareers = track["trackCareers"];
-      trackCareers = trackCareers.map((career) => {
+      trackCareers = trackCareers.map((career, index) => {
         return (
           <div className="track-career-container">
+            <p className="label fs-6">Career {index + 1}</p>
             <p
               suppressContentEditableWarning={true}
               contentEditable="true"
-              className="career-name"
+              className="career-name border border-white rounded p-2 mb-2"
             >
               {career["careerName"]}
             </p>
             <p
               suppressContentEditableWarning={true}
               contentEditable="true"
-              className="career-text"
+              className="career-text border border-white rounded p-2 mb-2"
             >
               {career["careerText"]}
             </p>
             <p
               suppressContentEditableWarning={true}
               contentEditable="true"
-              className="career-salary"
+              className="career-salary border border-white rounded p-2 mb-2"
             >
               {career["careerSalary"]}
             </p>
@@ -191,22 +194,28 @@ export function CourseEditor() {
 
       return (
         <div className="course-track">
-          <h3
+          <p className="mt-4 fs-4 label">Track {trackIndex + 1}</p>
+          <p
+            class=""
             suppressContentEditableWarning={true}
             contentEditable="true"
-            className="track-name"
+            className="track-name border border-white rounded p-2 mb-2"
           >
             {track["trackName"]}
-          </h3>
+          </p>
           <p
             suppressContentEditableWarning={true}
             contentEditable="true"
-            className="track-text"
+            className="track-text border border-white rounded p-2 mb-2"
           >
             {track["trackText"]}
           </p>
 
-          <div className="tracks-list-container">{trackTopics}</div>
+          <div className="tracks-list-container">
+            <p className="label fs-4">Tracks topics</p>
+            <div className="row">{trackTopics}</div>
+          </div>
+          <p className="fs-4 label">Track careers</p>
           <div className="careers-list-container">{trackCareers}</div>
         </div>
       );
@@ -215,25 +224,20 @@ export function CourseEditor() {
     return (
       <>
         <div className="course-content-wrapper">
-          <div className="course-content-header">
-            <span
+          <div className="course-content-header mt-4">
+            <p className="label fs-4">Course Name</p>
+            <p
               suppressContentEditableWarning={true}
               contentEditable="true"
-              className="course-d1"
+              className="border border-white rounded p-2 mb-2"
               onBlur={(e) => updateCourseName(e)}
               onKeyDown={(e) => tryToPreventNewLines(e)}
             >
               {courseData.get("courseName")}
-            </span>
-            <span
-              className="delete-course-button"
-              onClick={() => deleteCourse()}
-            >
-              X
-            </span>
+            </p>
           </div>
-          <h2>Course Texts</h2>
-          <div className="course-content-texts">
+          <p className="label fs-4">Course Text</p>
+          <div className="course-content-texts border border-white rounded p-2 mb-2">
             <p
               suppressContentEditableWarning={true}
               contentEditable="true"
@@ -243,13 +247,26 @@ export function CourseEditor() {
               {courseData.get("courseTexts")}
             </p>
           </div>
-          <h2>Course Tracks</h2>
           <div className="course-tracks-wrapper" ref={tracksWrapper}>
             {courseTracks}
           </div>
-          <button className="update-course-button" onClick={updateTracks}>
-            Update
-          </button>
+          <div className="row mt-4 mb-4">
+            <Button
+              className="col-2 m-2"
+              variant="success"
+              onClick={updateTracks}
+            >
+              Update Course
+            </Button>
+            <Button
+              className="col-2 m-2"
+              variant="warning"
+              onClick={deleteCourse}
+            >
+              Delete Course
+            </Button>
+          </div>
+          <div></div>
         </div>
       </>
     );

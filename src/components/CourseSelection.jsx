@@ -1,9 +1,10 @@
-import "./CourseSelection.css";
 import { db, auth, coursesCollectionRef } from "../config/Firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { addDoc } from "firebase/firestore";
 import { useState, useEffect, useContext } from "react";
 import { SelectedCourseContext } from "../helper/SelectedCourseContext";
+import { Button, Container } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export function CourseSelection() {
   const { selectedCourse, setSelectedCourse } = useContext(
@@ -123,7 +124,9 @@ export function CourseSelection() {
     courseList.map((course) => {
       const { courseName, id } = course;
       return (
-        <button
+        <Button
+          className="col-2"
+          variant="success"
           type="button"
           key={id}
           course-key={id}
@@ -131,16 +134,23 @@ export function CourseSelection() {
           onClick={(e) => selectCourse(e)}
         >
           {courseName ? courseName : "No name"}
-        </button>
+        </Button>
       );
     });
 
   return (
-    <div className="course-selection-container">
-      {courseButtons()}
-      <button type="button" onClick={() => addCourse("New Course")}>
-        +
-      </button>
-    </div>
+    <Container>
+      <div className="course-selection-container mt-4 row">
+        {courseButtons()}
+        <Button
+          className="col-1"
+          variant="success"
+          type="button"
+          onClick={() => addCourse("New Course")}
+        >
+          +
+        </Button>
+      </div>
+    </Container>
   );
 }
