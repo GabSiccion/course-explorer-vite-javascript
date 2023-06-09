@@ -32,8 +32,13 @@ function CreateNewUser() {
         try {
           await createUserWithEmailAndPassword(auth, email, password)
             .then((result) => {
-              result.user.sendEmailVerification();
+              sendEmailVerification(result.user);
             })
+            .then(
+              alert(
+                "Account created, check the account's email for verification."
+              )
+            )
             .catch((reason) => {
               alert(reason);
             });
