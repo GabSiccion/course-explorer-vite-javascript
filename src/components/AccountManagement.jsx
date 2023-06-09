@@ -39,8 +39,8 @@ export function AccountManagement() {
 
   return (
     <div className="page-container">
-      <h1>Register a new user</h1>
       <div className="sign-up-container">
+        <h2>Register a new user</h2>
         <input
           placeholder="Email"
           type="text"
