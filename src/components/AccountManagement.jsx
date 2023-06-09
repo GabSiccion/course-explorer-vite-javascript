@@ -30,11 +30,13 @@ function CreateNewUser() {
         alert("password and confirm password are not the same");
       } else {
         try {
-          await createUserWithEmailAndPassword(auth, email, password).catch(
-            (reason) => {
+          await createUserWithEmailAndPassword(auth, email, password)
+            .then((result) => {
+              result.user.sendEmailVerification();
+            })
+            .catch((reason) => {
               alert(reason);
-            }
-          );
+            });
         } catch (err) {
           console.log(AuthErrorCodes[err]);
         }
