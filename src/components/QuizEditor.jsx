@@ -3,6 +3,43 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../config/Firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
+
+function getQuiz() {
+  let questionsObjects = [];
+
+  const questionContainers =
+    document.getElementsByClassName("question-container");
+
+  let questionContainerArray = Array.from(questionContainers);
+  questionContainerArray.map((questionContainer) => {
+    let question =
+      questionContainer.getElementsByClassName("question")[0].textContent;
+    let choiceA =
+      questionContainer.getElementsByClassName("choice-a")[0].textContent;
+    let choiceB =
+      questionContainer.getElementsByClassName("choice-b")[0].textContent;
+    let choiceC =
+      questionContainer.getElementsByClassName("choice-c")[0].textContent;
+    let choiceD =
+      questionContainer.getElementsByClassName("choice-d")[0].textContent;
+    let correctLetter =
+      questionContainer.getElementsByClassName("correct-letter")[0].textContent;
+    let track =
+      questionContainer.getElementsByClassName("correct-letter")[0].textContent;
+
+    let choicesObject = { a: choiceA, b: choiceB, c: choiceC, d: choiceD };
+
+    questionsObjects.push({
+      question: question,
+      choices: choicesObject,
+      correctchoice: correctLetter,
+      track: track,
+    });
+  });
+
+  return questionsObjects;
+}
 
 export function QuizEditor() {
   const tracksWrapper = useRef(null);
@@ -12,6 +49,16 @@ export function QuizEditor() {
   );
 
   const [quizData, setQuizData] = useState([]);
+
+  const updateQuiz = async () => {
+    if (auth.currentUser.emailVerified) {
+      await updateDoc(doc(db, "courses", selectedCourse), {
+        courseQuestions: getQuiz(),
+      }).then(alert("saved"));
+    } else {
+      alert("Save prevented, your email has not yet been verified.");
+    }
+  };
 
   useEffect(() => {
     const getCourseData = async () => {
@@ -37,7 +84,10 @@ export function QuizEditor() {
   } else {
     let questionsArray = quizData.map((question, index) => {
       return (
-        <div className="question-container col-xs mb-4">
+        <div
+          className="question-container col-xs mb-4"
+          key={`${index}question-container`}
+        >
           <p className="label fs-4">Question {index + 1}:</p>
           <p
             contentEditable="true"
@@ -48,43 +98,63 @@ export function QuizEditor() {
           </p>
           <div className="choices-container fs-5">
             <div className="row">
-              <p className="col-1">A:</p>
+              <p className="col-1">choice a:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                className="col-6"
+                className="col-6 choice-a"
               >
                 {question["choices"]["a"]}
               </p>
             </div>
             <div className="row">
-              <p className="col-1">B:</p>
+              <p className="col-1">choice b:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                className="col-6"
+                className="col-6 choice-b"
               >
                 {question["choices"]["b"]}
               </p>
             </div>
             <div className="row">
-              <p className="col-1">C:</p>
+              <p className="col-1">choice c:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                className="col-6"
+                className="col-6 choice-c"
               >
                 {question["choices"]["c"]}
               </p>
             </div>
             <div className="row">
-              <p className="col-1">D:</p>
+              <p className="col-1">choice d:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                className="col-6"
+                className="col-6 choice-d"
               >
                 {question["choices"]["d"]}
+              </p>
+            </div>
+            <div className="row">
+              <p className="col-1">Correct Answer:</p>
+              <p
+                contentEditable="true"
+                suppressContentEditableWarning={true}
+                className="col-6 correct-letter"
+              >
+                {question["correctchoice"]}
+              </p>
+            </div>
+            <div className="row">
+              <p className="col-1">track:</p>
+              <p
+                contentEditable="true"
+                suppressContentEditableWarning={true}
+                className="col-6 track"
+              >
+                {question["track"]}
               </p>
             </div>
           </div>
@@ -92,6 +162,15 @@ export function QuizEditor() {
       );
     });
 
-    return <div className="mt-4 row">{questionsArray}</div>;
+    return (
+      <>
+        <div className="mt-4 row quiz-editor-container">{questionsArray}</div>
+        <div className="row mt-4 mb-4">
+          <Button className="col-2 m-2" variant="success" onClick={updateQuiz}>
+            Update Course
+          </Button>
+        </div>
+      </>
+    );
   }
 }
