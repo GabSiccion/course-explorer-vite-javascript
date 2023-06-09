@@ -40,12 +40,14 @@ button:hover {
   max-width: 1200px;
 }
 
-.sign-up-container {
+.sign-up-container,
+.change-password-container {
   max-width: 200px;
   display: flex;
   flex-direction: column;
 }
 
-.sign-up-container input {
+.sign-up-container input,
+.change-password-container input {
   font-size: 1.2rem;
 }

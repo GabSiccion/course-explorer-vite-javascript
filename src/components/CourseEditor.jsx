@@ -2,7 +2,7 @@ import "./CourseContent.css";
 import { SelectedCourseContext } from "../helper/SelectedCourseContext";
 import { useContext, useEffect, useState, useRef } from "react";
 import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
-import { db } from "../config/Firebase";
+import { auth, db } from "../config/Firebase";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -98,10 +98,14 @@ export function CourseEditor() {
       });
       return trackObjects;
     };
-    updateDoc(doc(db, "courses", selectedCourse), {
-      courseTracks: getTracks(),
-    });
-    console.log(getTracks());
+
+    if (auth.currentUser.emailVerified) {
+      updateDoc(doc(db, "courses", selectedCourse), {
+        courseTracks: getTracks(),
+      });
+    } else {
+      alert("Save prevented, your email has not yet been verified.");
+    }
   }
 
   useEffect(() => {
