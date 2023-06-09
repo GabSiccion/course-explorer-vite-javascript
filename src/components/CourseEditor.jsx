@@ -1,6 +1,13 @@
 import { SelectedCourseContext } from "../helper/SelectedCourseContext";
 import { useContext, useEffect, useState, useRef } from "react";
-import { doc, getDoc, deleteDoc, updateDoc, addDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  deleteDoc,
+  updateDoc,
+  addDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { auth, db } from "../config/Firebase";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import Button from "react-bootstrap/Button";
@@ -47,24 +54,6 @@ export function CourseEditor() {
     return true;
   }
 
-  const addNewCareer = async (e) => {
-    const careerObject = {
-      careerName: "Career title",
-      careerSalary: "$0",
-      careerText: "Career description",
-    };
-    let index = parseInt(e.getAttribute("trackIndex"));
-  };
-
-  const addNewTopic = async (e) => {
-    const careerObject = {
-      careerName: "Career title",
-      careerSalary: "$0",
-      careerText: "Career description",
-    };
-    let index = parseInt(e.getAttribute("trackIndex"));
-  };
-
   async function updateTracks() {
     const getTracks = () => {
       let trackObjects = [];
@@ -76,6 +65,7 @@ export function CourseEditor() {
         let trackCareersArray = Array.from(
           track.getElementsByClassName("track-career-container")
         );
+
         let trackCareers = trackCareersArray.map((career) => {
           let careerName =
             career.getElementsByClassName("career-name")[0].innerText;
@@ -93,6 +83,7 @@ export function CourseEditor() {
         let trackTopicsArray = Array.from(
           track.getElementsByClassName("track-topic-container")
         );
+
         let trackTopics = trackTopicsArray.map((topic) => {
           let topicName =
             topic.getElementsByClassName("topic-name")[0].innerText;
@@ -106,7 +97,7 @@ export function CourseEditor() {
             topicURL: topicURL,
           };
         });
-
+        console.log(trackTopics);
         let object = {
           trackName: trackName,
           trackText: trackText,
@@ -115,6 +106,7 @@ export function CourseEditor() {
         };
         trackObjects.push(object);
       });
+      console.log(trackObjects);
       return trackObjects;
     };
 
@@ -132,6 +124,7 @@ export function CourseEditor() {
       const courseData = await getDoc(doc(db, "courses", selectedCourse));
       if (courseData.data != undefined) {
         setCourseData(courseData);
+        console.log(courseData);
       } else {
         console.log("no data");
       }
@@ -153,7 +146,7 @@ export function CourseEditor() {
       let trackTopics = track["trackTopics"];
       trackTopics = trackTopics.map((topic, index) => {
         return (
-          <div className="topic-container col-6">
+          <div className="track-topic-container col-6">
             <p className="label fs-6">Topic {index + 1}</p>
             <p
               suppressContentEditableWarning={true}
@@ -228,26 +221,11 @@ export function CourseEditor() {
           >
             {track["trackText"]}
           </p>
-
           <div className="tracks-list-container">
-            <p className="label fs-4">
-              Tracks topics
-              <span>
-                <Button trackIndex={trackIndex} variant="success">
-                  +
-                </Button>
-              </span>
-            </p>
-            <div className="row">{trackTopics}</div>
+            <p className="label fs-4">Tracks topics</p>
+            <div className="topic-list-container row">{trackTopics}</div>
           </div>
-          <p className="fs-4 label">
-            Track careers
-            <span>
-              <Button trackIndex={trackIndex} variant="success">
-                +
-              </Button>
-            </span>
-          </p>
+          <p className="fs-4 label">Track careers</p>
           <div className="careers-list-container row">{trackCareers}</div>
         </div>
       );
