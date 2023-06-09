@@ -25,9 +25,16 @@ export function AccountManagement() {
           console.log(AuthErrorCodes[err]);
         }
       }
+      clearStates();
     } else {
       alert("password too short, minimum of 5 characters");
     }
+  };
+
+  const clearStates = () => {
+    setPassword("");
+    setEmail("");
+    setConfirmPassword("");
   };
 
   return (
