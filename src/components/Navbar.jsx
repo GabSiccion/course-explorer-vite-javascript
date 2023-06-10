@@ -71,6 +71,12 @@ export function Navbar() {
                 <span>Logout</span>
               </Link>
             </li>
+            <li key="6" className="nav-text">
+              <Link to="viewer_site">
+                <IoIcons.IoIosBriefcase />
+                <span>Viewer</span>
+              </Link>
+            </li>
           </ul>
         </nav>
       </IconContext.Provider>
