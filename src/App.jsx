@@ -8,6 +8,7 @@ import { Route, Routes } from "react-router-dom";
 import { AccountManagement } from "./components/AccountManagement";
 import { CourseContent } from "./components/CourseContent";
 import { Dashboard } from "./components/Dashboard";
+import { Viewer } from "./components/Viewer";
 import { QuizContent } from "./components/QuizContent";
 
 function isLoggedIn() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="course_content" element={<CourseContent />} />
             <Route path="account_management" element={<AccountManagement />} />
             <Route path="quiz_content" element={<QuizContent />} />
+            <Route path="viewer" element={<Viewer />} />
           </Route>
         </Routes>
       </LoginContext.Provider>

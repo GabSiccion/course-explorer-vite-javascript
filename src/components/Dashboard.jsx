@@ -106,37 +106,11 @@ export function Dashboard() {
     );
   });
 
-  //AVERAGE SCORE CHART
-  let averageScores = courseList.map((course) => {
-    let instances = 0;
-    let totalScore = 0;
-    scores.map((score) => {
-      if (score["course"] === course) {
-        instances++;
-        totalScore = totalScore + score["score"];
-      }
-    });
-    let average = Math.round(totalScore / instances);
-    return (
-      <div className="col-3 flex-column text-center average-score-container">
-        <h1>%{average}</h1>
-        <h1>{course}</h1>
-      </div>
-    );
-  });
-
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
         <h2 className="text-center">Distribution of track recommendation</h2>
       </div>
-      <div className="row justify-content-center pie-charts-container pb-4">
-        {pies}
-      </div>
-      <div className="row justify-content-center">
-        <h2 className="text-center mt-5">Average Scores on course quiz</h2>
-      </div>
-      <div className="row justify-content-center mt-4">{averageScores}</div>
     </div>
   );
 }

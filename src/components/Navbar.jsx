@@ -72,7 +72,7 @@ export function Navbar() {
               </Link>
             </li>
             <li key="6" className="nav-text">
-              <Link to="viewer_site">
+              <Link to="viewer">
                 <IoIcons.IoIosBriefcase />
                 <span>Viewer</span>
               </Link>
