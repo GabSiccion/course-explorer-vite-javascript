@@ -57,3 +57,20 @@ body {
 .p1 {
   color: black !important;
 }
+
+.pie-charts-container {
+  padding-top: 4rem;
+  background-color: white;
+  border-radius: 5%;
+  padding-bottom: 4rem;
+}
+
+.average-score-container {
+  padding: 1rem;
+  border: 1px solid white;
+  border-radius: 12px;
+}
+
+.container {
+  margin-bottom: 100px;
+}

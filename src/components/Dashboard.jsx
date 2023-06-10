@@ -46,7 +46,6 @@ export function Dashboard() {
   }, []);
 
   //DISTRIBUTION CHART
-
   let pies = courseList.map((course) => {
     let courseScores = [];
     scores.map((score) => {
@@ -58,9 +57,6 @@ export function Dashboard() {
       return courseScores.indexOf(item) == pos;
     });
 
-    console.log(coursetracks);
-    console.log(courseScores);
-
     let distribution = [];
     coursetracks.map((track, index) => {
       let instances = 0;
@@ -70,13 +66,11 @@ export function Dashboard() {
       distribution[index] = instances;
     });
 
-    console.log(distribution);
-
     const distributionData = {
       labels: coursetracks,
       datasets: [
         {
-          label: "Distribution of track recommendation",
+          label: `Recommedation Distribution of ${course}`,
           data: distribution,
           backgroundColor: [
             "rgb(255, 99, 132)",
@@ -97,17 +91,52 @@ export function Dashboard() {
           borderWidth: 1,
         },
       ],
+      options: {
+        legend: {
+          labels: {
+            fontColor: "white",
+          },
+        },
+      },
     };
     return (
-      <div className="col-6">
+      <div className="col-5">
         <Pie data={distributionData} />
       </div>
     );
   });
 
+  //AVERAGE SCORE CHART
+  let averageScores = courseList.map((course) => {
+    let instances = 0;
+    let totalScore = 0;
+    scores.map((score) => {
+      if (score["course"] === course) {
+        instances++;
+        totalScore = totalScore + score["score"];
+      }
+    });
+    let average = Math.round(totalScore / instances);
+    return (
+      <div className="col-3 flex-column text-center average-score-container">
+        <h1>%{average}</h1>
+        <h1>{course}</h1>
+      </div>
+    );
+  });
+
   return (
-    <div className="container mt-4 row justify-content-center align-items-center">
-      {pies}
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <h2 className="text-center">Distribution of track recommendation</h2>
+      </div>
+      <div className="row justify-content-center pie-charts-container pb-4">
+        {pies}
+      </div>
+      <div className="row justify-content-center">
+        <h2 className="text-center mt-5">Average Scores on course quiz</h2>
+      </div>
+      <div className="row justify-content-center mt-4">{averageScores}</div>
     </div>
   );
 }
