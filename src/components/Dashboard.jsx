@@ -117,24 +117,27 @@ export function Dashboard() {
       }
     });
     let average = Math.round(totalScore / instances);
-    return (
-      <div className="col-3 flex-column text-center average-score-container">
-        <h1>%{average}</h1>
-        <h1>{course}</h1>
-      </div>
-    );
+    if (!isNaN(average)) {
+      return (
+        <div className="col-3 flex-column text-center average-score-container m-1">
+          <p className="fs-1">{average}%</p>
+          <p className="fs-5">
+            Average Scores of {instances} Quiz Takers of{" "}
+            <strong>{course}</strong>
+          </p>
+        </div>
+      );
+    }
   });
 
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
-        <h2 className="text-center">Distribution of track recommendation</h2>
-      </div>
-      <div className="row justify-content-center pie-charts-container pb-4">
-        {pies}
-      </div>
-      <div className="row justify-content-center">
-        <h2 className="text-center mt-5">Average Scores on course quiz</h2>
+        <p className="text-center mt-5 fs-2">Average Scores on course quiz</p>
+        <p className="text-center fs-3">
+          This information below represents the average scores achieved on
+          quizzes for each course.
+        </p>
       </div>
       <div className="row justify-content-center mt-4">{averageScores}</div>
     </div>

@@ -1,6 +1,13 @@
 import { SelectedCourseContext } from "../helper/SelectedCourseContext";
 import { useContext, useEffect, useState, useRef } from "react";
-import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  addDoc,
+  updateDoc,
+  setDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { auth, db } from "../config/Firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
@@ -49,6 +56,7 @@ export function QuizEditor() {
   );
 
   const [quizData, setQuizData] = useState([]);
+  const [render, setRender] = useState(true);
 
   const updateQuiz = async () => {
     if (auth.currentUser.emailVerified) {
@@ -59,6 +67,22 @@ export function QuizEditor() {
       alert("Save prevented, your email has not yet been verified.");
     }
   };
+
+  async function addQuestion() {
+    const questionTemplate = {
+      choices: {
+        a: "choice a",
+        b: "choice b",
+        c: "choice c",
+        d: "choice d",
+      },
+      correctchoice: "a",
+      question: "new question to be answered",
+      track: "track of the question",
+    };
+
+    setQuizData((quizData) => [...quizData, questionTemplate]);
+  }
 
   useEffect(() => {
     const getCourseData = async () => {
@@ -164,12 +188,15 @@ export function QuizEditor() {
 
     return (
       <>
-        <div className="mt-4 row quiz-editor-container">{questionsArray}</div>
         <div className="row mt-4 mb-4">
           <Button className="col-2 m-2" variant="success" onClick={updateQuiz}>
             Update Course
           </Button>
+          <Button className="col-2 m-2" variant="success" onClick={addQuestion}>
+            Add Question
+          </Button>
         </div>
+        <div className="mt-4 row quiz-editor-container">{questionsArray}</div>
       </>
     );
   }

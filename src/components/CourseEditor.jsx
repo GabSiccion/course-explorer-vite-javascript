@@ -228,7 +228,7 @@ export function CourseEditor() {
     return (
       <>
         <div className="course-content-wrapper">
-          <div className="course-content-header mt-4">
+          <div className="course-content-header">
             <p className="label fs-4">Course Name</p>
             <p
               suppressContentEditableWarning={true}
