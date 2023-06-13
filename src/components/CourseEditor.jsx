@@ -19,6 +19,7 @@ export function CourseEditor() {
     SelectedCourseContext
   );
   const [courseData, setCourseData] = useState({});
+  const [courseTracksState, setCourseTracksState] = useState([]);
 
   const updateCourseName = async (e) => {
     updateDoc(doc(db, "courses", selectedCourse), {
@@ -114,11 +115,108 @@ export function CourseEditor() {
     }
   }
 
+  function addTopic(e) {
+    let index = e.target.getAttribute("trackindex");
+    let track = document.getElementsByClassName("course-track")[index];
+
+    const topicTemplate = () => {
+      return (
+        <div className="track-topic-container col-6">
+          <p className="label fs-6">Topic {index}</p>
+          <p
+            suppressContentEditableWarning={true}
+            contentEditable="true"
+            className="topic-name border border-white rounded p-2 mb-2"
+          >
+            Topic Title
+          </p>
+          <p
+            suppressContentEditableWarning={true}
+            contentEditable="true"
+            className="topic-text border border-white rounded p-2 mb-2"
+          >
+            Topic Text
+          </p>
+          <p
+            suppressContentEditableWarning={true}
+            contentEditable="true"
+            className="topic-link border border-white rounded p-2 mb-2"
+          >
+            Topic URL
+          </p>
+        </div>
+      );
+    };
+    track.append(topicTemplate());
+  }
+
+  function addCareer(e) {
+    let index = e.target.getAttribute("trackindex");
+    let track = document.getElementsByClassName("course-track")[index];
+  }
+
+  function addTrack() {
+    const trackTemplate = [
+      {
+        trackName: "New Course Track",
+        trackText: "track text",
+        trackTopics: [
+          {
+            topicName: "Topic name 1",
+            topicText: "sample topic text",
+            topicURL: "sample URL",
+          },
+          {
+            topicName: "Topic name 2",
+            topicText: "sample topic text",
+            topicURL: "sample URL",
+          },
+          {
+            topicName: "Topic name 3",
+            topicText: "sample topic text",
+            topicURL: "sample URL",
+          },
+          {
+            topicName: "Topic name 4",
+            topicText: "sample topic text",
+            topicURL: "sample URL",
+          },
+        ],
+        trackCareers: [
+          {
+            careerName: "career name sample",
+            careerText: "career text sample",
+            careerSalary: "$1000",
+          },
+          {
+            careerName: "career name sample",
+            careerText: "career text sample",
+            careerSalary: "$1000",
+          },
+        ],
+      },
+    ];
+    setCourseTracksState((courseTracksState) => [
+      ...courseTracksState,
+      ...trackTemplate,
+    ]);
+    console.log(courseTracksState);
+    console.log();
+  }
+
+  function removeTrack(e) {
+    let index = e.target.getAttribute("trackindex");
+    let newTracksArray = [...courseTracksState];
+    newTracksArray.splice(index - 1, 1);
+    setCourseTracksState(newTracksArray.slice());
+  }
+
   useEffect(() => {
     const getCourseData = async () => {
       const courseData = await getDoc(doc(db, "courses", selectedCourse));
       if (courseData.data != undefined) {
         setCourseData(courseData);
+        setCourseTracksState(courseData.get("courseTracks"));
       } else {
         console.log("no data");
       }
@@ -135,8 +233,7 @@ export function CourseEditor() {
       </>
     );
   } else {
-    let courseTracks = courseData.get("courseTracks");
-    courseTracks = courseTracks.map((track, trackIndex) => {
+    let courseTracks = courseTracksState.map((track, trackindex) => {
       let trackTopics = track["trackTopics"];
       trackTopics = trackTopics.map((topic, index) => {
         return (
@@ -199,9 +296,40 @@ export function CourseEditor() {
 
       return (
         <div className="course-track">
-          <p className="mt-4 fs-4 label">Track {trackIndex + 1}</p>
+          <p className="mt-4 fs-4 label">Track {trackindex + 1}</p>
+          <div className="my-2">
+            <Button
+              variant="success"
+              className="me-1"
+              trackindex={trackindex}
+              onClick={(e) => {
+                addTopic(e);
+              }}
+            >
+              Add Topic
+            </Button>
+            <Button
+              variant="success"
+              className="me-1"
+              trackindex={trackindex}
+              onClick={(e) => {
+                addCareer(e);
+              }}
+            >
+              Add Career
+            </Button>
+            <Button
+              variant="danger"
+              className="me-1"
+              trackindex={trackindex}
+              onClick={(e) => {
+                removeTrack(e);
+              }}
+            >
+              Delete Track
+            </Button>
+          </div>
           <p
-            class=""
             suppressContentEditableWarning={true}
             contentEditable="true"
             className="track-name border border-white rounded p-2 mb-2"
@@ -227,6 +355,21 @@ export function CourseEditor() {
 
     return (
       <>
+        <div className="row mt-4 mb-4">
+          <Button className="col-2 m-2" variant="success" onClick={addTrack}>
+            Add Track
+          </Button>
+          <Button
+            className="col-2 m-2"
+            variant="success"
+            onClick={updateTracks}
+          >
+            Update Course
+          </Button>
+          <Button className="col-2 m-2" variant="danger" onClick={deleteCourse}>
+            Delete Course
+          </Button>
+        </div>
         <div className="course-content-wrapper">
           <div className="course-content-header">
             <p className="label fs-4">Course Name</p>
@@ -254,23 +397,6 @@ export function CourseEditor() {
           <div className="course-tracks-wrapper" ref={tracksWrapper}>
             {courseTracks}
           </div>
-          <div className="row mt-4 mb-4">
-            <Button
-              className="col-2 m-2"
-              variant="success"
-              onClick={updateTracks}
-            >
-              Update Course
-            </Button>
-            <Button
-              className="col-2 m-2"
-              variant="warning"
-              onClick={deleteCourse}
-            >
-              Delete Course
-            </Button>
-          </div>
-          <div></div>
         </div>
       </>
     );
