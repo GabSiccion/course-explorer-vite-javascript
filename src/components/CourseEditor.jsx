@@ -116,46 +116,34 @@ export function CourseEditor() {
   }
 
   function addTopic(e) {
-    let index = e.target.getAttribute("trackindex");
-    let track = document.getElementsByClassName("course-track")[index];
-
-    const topicTemplate = () => {
-      return (
-        <div className="track-topic-container col-6">
-          <p className="label fs-6">Topic {index}</p>
-          <p
-            suppressContentEditableWarning={true}
-            contentEditable="true"
-            className="topic-name border border-white rounded p-2 mb-2"
-          >
-            Topic Title
-          </p>
-          <p
-            suppressContentEditableWarning={true}
-            contentEditable="true"
-            className="topic-text border border-white rounded p-2 mb-2"
-          >
-            Topic Text
-          </p>
-          <p
-            suppressContentEditableWarning={true}
-            contentEditable="true"
-            className="topic-link border border-white rounded p-2 mb-2"
-          >
-            Topic URL
-          </p>
-        </div>
-      );
+    let newTracksArray = [...courseTracksState];
+    const topicTemplate = {
+      topicName: "Topic name",
+      topicText: "sample topic text",
+      topicURL: "sample URL",
     };
-    track.append(topicTemplate());
+    let index = e.target.getAttribute("trackindex");
+    let track = newTracksArray[index];
+    //track["trackCareers"].push(careerTemplate);
+    track["trackTopics"].push(topicTemplate);
+    setCourseTracksState(newTracksArray);
   }
 
   function addCareer(e) {
+    let newTracksArray = [...courseTracksState];
+    const careerTemplate = {
+      careerName: "career name sample",
+      careerText: "career text sample",
+      careerSalary: "$1000",
+    };
     let index = e.target.getAttribute("trackindex");
-    let track = document.getElementsByClassName("course-track")[index];
+    let track = newTracksArray[index];
+    //track["trackCareers"].push(careerTemplate);
+    track["trackCareers"].push(careerTemplate);
+    setCourseTracksState(newTracksArray);
   }
 
-  function addTrack() {
+  function addTrack(e) {
     const trackTemplate = [
       {
         trackName: "New Course Track",
@@ -200,8 +188,6 @@ export function CourseEditor() {
       ...courseTracksState,
       ...trackTemplate,
     ]);
-    console.log(courseTracksState);
-    console.log();
   }
 
   function removeTrack(e) {
