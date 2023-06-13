@@ -112,17 +112,17 @@ export function QuizEditor() {
           className="question-container col-xs mb-4"
           key={`${index}question-container`}
         >
-          <p className="label fs-4">Question {index + 1}:</p>
+          <p className="label fs-5">Question {index + 1}:</p>
           <p
             contentEditable="true"
             suppressContentEditableWarning="true"
-            className="question fs-4"
+            className="question fs-5"
           >
             {question["question"]}
           </p>
           <div className="choices-container fs-5">
             <div className="row">
-              <p className="col-1">choice a:</p>
+              <p className="col-3">choice a:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
@@ -132,7 +132,7 @@ export function QuizEditor() {
               </p>
             </div>
             <div className="row">
-              <p className="col-1">choice b:</p>
+              <p className="col-3">choice b:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
@@ -142,7 +142,7 @@ export function QuizEditor() {
               </p>
             </div>
             <div className="row">
-              <p className="col-1">choice c:</p>
+              <p className="col-3">choice c:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
@@ -152,7 +152,7 @@ export function QuizEditor() {
               </p>
             </div>
             <div className="row">
-              <p className="col-1">choice d:</p>
+              <p className="col-3">choice d:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
@@ -162,7 +162,7 @@ export function QuizEditor() {
               </p>
             </div>
             <div className="row">
-              <p className="col-1">Correct Answer:</p>
+              <p className="col-3">Correct Answer:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
@@ -172,7 +172,7 @@ export function QuizEditor() {
               </p>
             </div>
             <div className="row">
-              <p className="col-1">track:</p>
+              <p className="col-3">track:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
