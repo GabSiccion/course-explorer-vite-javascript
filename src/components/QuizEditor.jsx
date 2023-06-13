@@ -33,7 +33,7 @@ function getQuiz() {
     let correctLetter =
       questionContainer.getElementsByClassName("correct-letter")[0].textContent;
     let track =
-      questionContainer.getElementsByClassName("correct-letter")[0].textContent;
+      questionContainer.getElementsByClassName("track")[0].textContent;
 
     let choicesObject = { a: choiceA, b: choiceB, c: choiceC, d: choiceD };
 
