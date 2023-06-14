@@ -84,9 +84,11 @@ export function QuizEditor() {
     setQuizData((quizData) => [...quizData, questionTemplate]);
   }
 
-  function removeElement(e) {
-    let target = e.target.parentNode;
-    target.remove();
+  function removeQuestion(e) {
+    let index = e.target.getAttribute("questionIndex");
+    let questionsArrayCopy = [...quizData];
+    questionsArrayCopy.splice(index, 1);
+    setQuizData(questionsArrayCopy);
   }
 
   useEffect(() => {
@@ -121,8 +123,9 @@ export function QuizEditor() {
           <Button
             className="my-1"
             variant="danger"
+            questionIndex={index}
             onClick={(e) => {
-              removeElement(e);
+              removeQuestion(e);
             }}
           >
             Remove question
