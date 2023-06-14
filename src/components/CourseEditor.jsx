@@ -109,7 +109,7 @@ export function CourseEditor() {
     if (auth.currentUser.emailVerified) {
       updateDoc(doc(db, "courses", selectedCourse), {
         courseTracks: getTracks(),
-      });
+      }).then(alert("course update saved"));
     } else {
       alert("Save prevented, your email has not yet been verified.");
     }
@@ -141,6 +141,26 @@ export function CourseEditor() {
     //track["trackCareers"].push(careerTemplate);
     track["trackCareers"].push(careerTemplate);
     setCourseTracksState(newTracksArray);
+  }
+
+  function removeTopic(e) {
+    let newArray = [...courseTracksState];
+    let trackIndex = e.target.getAttribute("trackIndex");
+    let topicIndex = e.target.getAttribute("topicIndex");
+
+    newArray[trackIndex]["trackTopics"].splice(topicIndex, 1);
+
+    setCourseTracksState(newArray);
+  }
+
+  function removeCareer(e) {
+    let newArray = [...courseTracksState];
+    let trackIndex = e.target.getAttribute("trackIndex");
+    let topicIndex = e.target.getAttribute("careerIndex");
+
+    newArray[trackIndex]["trackCareers"].splice(topicIndex, 1);
+
+    setCourseTracksState(newArray);
   }
 
   function addTrack(e) {
@@ -193,7 +213,7 @@ export function CourseEditor() {
   function removeTrack(e) {
     let index = e.target.getAttribute("trackindex");
     let newTracksArray = [...courseTracksState];
-    newTracksArray.splice(index - 1, 1);
+    newTracksArray.splice(index, 1);
     setCourseTracksState(newTracksArray.slice());
   }
 
@@ -203,6 +223,7 @@ export function CourseEditor() {
       if (courseData.data != undefined) {
         setCourseData(courseData);
         setCourseTracksState(courseData.get("courseTracks"));
+        console.log(courseTracksState);
       } else {
         console.log("no data");
       }
@@ -223,8 +244,19 @@ export function CourseEditor() {
       let trackTopics = track["trackTopics"];
       trackTopics = trackTopics.map((topic, index) => {
         return (
-          <div className="track-topic-container col-6">
+          <div className="track-topic-container col-6 mt-1">
             <p className="label fs-6">Topic {index + 1}</p>
+            <Button
+              className="my-1"
+              variant="danger"
+              topicIndex={index}
+              trackIndex={trackindex}
+              onClick={(e) => {
+                removeTopic(e);
+              }}
+            >
+              Remove topic
+            </Button>
             <p
               suppressContentEditableWarning={true}
               contentEditable="true"
@@ -255,6 +287,17 @@ export function CourseEditor() {
         return (
           <div className="track-career-container col-6">
             <p className="label fs-6">Career {index + 1}</p>
+            <Button
+              className="my-1"
+              variant="danger"
+              careerIndex={index}
+              trackIndex={trackindex}
+              onClick={(e) => {
+                removeCareer(e);
+              }}
+            >
+              Remove career
+            </Button>
             <p
               suppressContentEditableWarning={true}
               contentEditable="true"

@@ -84,6 +84,11 @@ export function QuizEditor() {
     setQuizData((quizData) => [...quizData, questionTemplate]);
   }
 
+  function removeElement(e) {
+    let target = e.target.parentNode;
+    target.remove();
+  }
+
   useEffect(() => {
     const getCourseData = async () => {
       const courseData = await getDoc(doc(db, "courses", selectedCourse));
@@ -113,6 +118,15 @@ export function QuizEditor() {
           key={`${index}question-container`}
         >
           <p className="label fs-5">Question {index + 1}:</p>
+          <Button
+            className="my-1"
+            variant="danger"
+            onClick={(e) => {
+              removeElement(e);
+            }}
+          >
+            Remove question
+          </Button>
           <p
             contentEditable="true"
             suppressContentEditableWarning="true"
