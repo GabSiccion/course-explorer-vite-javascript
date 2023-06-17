@@ -27,9 +27,9 @@ export function Navbar() {
   const showSidebar = () => setSidebar(!sidebar);
 
   return (
-    <>
+    <div class="sticky-top">
       <IconContext.Provider value={{ color: "green" }}>
-        <div className="navbar">
+        <div className="navbar sticky-top">
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
@@ -80,6 +80,6 @@ export function Navbar() {
           </ul>
         </nav>
       </IconContext.Provider>
-    </>
+    </div>
   );
 }

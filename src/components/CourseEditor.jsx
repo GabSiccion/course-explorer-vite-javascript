@@ -223,7 +223,6 @@ export function CourseEditor() {
       if (courseData.data != undefined) {
         setCourseData(courseData);
         setCourseTracksState(courseData.get("courseTracks"));
-        console.log(courseTracksState);
       } else {
         console.log("no data");
       }

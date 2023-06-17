@@ -66,6 +66,11 @@ export function Dashboard() {
       distribution[index] = instances;
     });
 
+    console.log(coursetracks);
+    let remove = coursetracks.indexOf("any tracks");
+    coursetracks.splice(remove, 1);
+    distribution.splice(remove, 1);
+
     const distributionData = {
       labels: coursetracks,
       datasets: [
@@ -94,16 +99,18 @@ export function Dashboard() {
       options: {
         legend: {
           labels: {
-            fontColor: "white",
+            fontColor: "blue",
           },
         },
       },
     };
-    return (
-      <div className="col-5">
-        <Pie data={distributionData} />
-      </div>
-    );
+    if (!(courseScores.length == 0)) {
+      return (
+        <div className="col-md-4">
+          <Pie data={distributionData} />
+        </div>
+      );
+    }
   });
 
   //AVERAGE SCORE CHART
@@ -119,7 +126,7 @@ export function Dashboard() {
     let average = Math.round(totalScore / instances);
     if (!isNaN(average)) {
       return (
-        <div className="col-3 flex-column text-center average-score-container m-1">
+        <div className="col-md-3 flex-column text-center average-score-container m-1">
           <p className="fs-1">{average}%</p>
           <p className="fs-5">
             Average Scores of {instances} Quiz Takers of{" "}
@@ -132,6 +139,14 @@ export function Dashboard() {
 
   return (
     <div className="container mt-5">
+      <div className="row justify-content-center">
+        <p className="text-center mt-5 fs-2">Average Scores on course quiz</p>
+        <p className="text-center fs-3">
+          This information below represents the average scores achieved on
+          quizzes for each course.
+        </p>
+      </div>
+      <div className="row justify-content-center mt-4">{pies}</div>
       <div className="row justify-content-center">
         <p className="text-center mt-5 fs-2">Average Scores on course quiz</p>
         <p className="text-center fs-3">
