@@ -66,10 +66,12 @@ export function Dashboard() {
       distribution[index] = instances;
     });
 
-    console.log(coursetracks);
-    let remove = coursetracks.indexOf("any tracks");
-    coursetracks.splice(remove, 1);
-    distribution.splice(remove, 1);
+    //console.log(coursetracks);
+    //if (coursetracks.includes("any tracks")) {
+    //  let remove = coursetracks.indexOf("any tracks");
+    //  coursetracks.splice(remove, 1);
+    //  distribution.splice(remove, 1);
+    //}
 
     const distributionData = {
       labels: coursetracks,
@@ -104,10 +106,22 @@ export function Dashboard() {
         },
       },
     };
+
+    const desc = () => {
+      return coursetracks.map((track, index) => {
+        return (
+          <div className="text-align-center fs-3">
+            {track} : {distribution[index]}
+          </div>
+        );
+      });
+    };
+
     if (!(courseScores.length == 0)) {
       return (
-        <div className="col-md-4">
-          <Pie data={distributionData} />
+        <div className="col-md-4 text-dark text-center">
+          <Pie className="my-3" data={distributionData} />
+          {desc()}
         </div>
       );
     }
@@ -142,11 +156,13 @@ export function Dashboard() {
       <div className="row justify-content-center">
         <p className="text-center mt-5 fs-2">Average Scores on course quiz</p>
         <p className="text-center fs-3">
-          This information below represents the average scores achieved on
-          quizzes for each course.
+          This chart reprensents the distribution of recommendations in each
+          course given to quiz takers.
         </p>
       </div>
-      <div className="row justify-content-center mt-4">{pies}</div>
+      <div className="row justify-content-center mt-4 bg-light py-5 rounded">
+        {pies}
+      </div>
       <div className="row justify-content-center">
         <p className="text-center mt-5 fs-2">Average Scores on course quiz</p>
         <p className="text-center fs-3">
