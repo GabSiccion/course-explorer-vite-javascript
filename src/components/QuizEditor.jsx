@@ -198,6 +198,11 @@ export function QuizEditor() {
                 {question["track"]}
               </p>
             </div>
+            <div className="row">
+              <select className="col-6 track">
+                <option value={question["track"]}></option>
+              </select>
+            </div>
           </div>
         </div>
       );
