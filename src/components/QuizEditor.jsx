@@ -123,20 +123,23 @@ export function QuizEditor() {
     let questionsArray = quizData.map((question, index) => {
       return (
         <div
-          className="question-container col-xs mb-4"
+          className="question-container col-xs mb-5"
           key={`${index}question-container`}
         >
-          <p className="label fs-5">Question {index + 1}:</p>
-          <Button
-            className="my-1"
-            variant="danger"
-            questionIndex={index}
-            onClick={(e) => {
-              removeQuestion(e);
-            }}
-          >
-            Remove question
-          </Button>
+          <p className="label fs-5">
+            Question {index + 1}:
+            <Button
+              className="my-1 ms-3"
+              variant="danger"
+              questionIndex={index}
+              onClick={(e) => {
+                removeQuestion(e);
+              }}
+            >
+              Remove question
+            </Button>
+          </p>
+
           <p
             contentEditable="true"
             suppressContentEditableWarning="true"
@@ -146,7 +149,7 @@ export function QuizEditor() {
           </p>
           <div className="choices-container fs-5">
             <div className="row">
-              <p className="col-3">choice a:</p>
+              <p className="col-2">choice a:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
@@ -156,7 +159,7 @@ export function QuizEditor() {
               </p>
             </div>
             <div className="row">
-              <p className="col-3">choice b:</p>
+              <p className="col-2">choice b:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
@@ -166,7 +169,7 @@ export function QuizEditor() {
               </p>
             </div>
             <div className="row">
-              <p className="col-3">choice c:</p>
+              <p className="col-2">choice c:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
@@ -176,7 +179,7 @@ export function QuizEditor() {
               </p>
             </div>
             <div className="row">
-              <p className="col-3">choice d:</p>
+              <p className="col-2">choice d:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
@@ -186,7 +189,7 @@ export function QuizEditor() {
               </p>
             </div>
             <div className="row">
-              <p className="col-3">Correct Answer:</p>
+              <p className="col-2">Correct Answer:</p>
               <p
                 contentEditable="true"
                 suppressContentEditableWarning={true}
@@ -196,7 +199,7 @@ export function QuizEditor() {
               </p>
             </div>
             <div className="row">
-              <p className="col-3">track:</p>
+              <p className="col-2">track:</p>
               <select className="col-3 track">
                 <option value={question["track"]} hidden>
                   {question["track"]}
