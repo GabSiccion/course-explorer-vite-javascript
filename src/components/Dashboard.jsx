@@ -110,7 +110,7 @@ export function Dashboard() {
     const desc = () => {
       return coursetracks.map((track, index) => {
         return (
-          <div className="text-align-center fs-3">
+          <div className="text-align-center fs-4">
             {track} : {distribution[index]}
           </div>
         );
@@ -119,7 +119,8 @@ export function Dashboard() {
 
     if (!(courseScores.length == 0)) {
       return (
-        <div className="col-md-4 text-dark text-center">
+        <div className="col-md-4 text-dark text-center mb-4">
+          <p className="fs-2">{course}</p>
           <Pie className="my-3" data={distributionData} />
           {desc()}
         </div>
@@ -154,7 +155,9 @@ export function Dashboard() {
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
-        <p className="text-center mt-5 fs-2">Average Scores on course quiz</p>
+        <p className="text-center mt-5 fs-2">
+          Distribution of tracks recommended to students
+        </p>
         <p className="text-center fs-3">
           This chart reprensents the distribution of recommendations in each
           course given to quiz takers.
