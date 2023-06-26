@@ -159,7 +159,7 @@ export function Dashboard() {
           Distribution of tracks recommended to students
         </p>
         <p className="text-center fs-3">
-          This chart reprensents the distribution of recommendations in each
+          This chart represents the distribution of recommendations in each
           course given to quiz takers.
         </p>
       </div>
