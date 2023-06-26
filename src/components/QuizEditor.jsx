@@ -32,8 +32,7 @@ function getQuiz() {
       questionContainer.getElementsByClassName("choice-d")[0].textContent;
     let correctLetter =
       questionContainer.getElementsByClassName("correct-letter")[0].textContent;
-    let track =
-      questionContainer.getElementsByClassName("track")[0].textContent;
+    let track = questionContainer.getElementsByClassName("track")[0].value;
 
     let choicesObject = { a: choiceA, b: choiceB, c: choiceC, d: choiceD };
 
@@ -56,6 +55,7 @@ export function QuizEditor() {
   );
 
   const [quizData, setQuizData] = useState([]);
+  const [trackList, setTracksList] = useState([]);
   const [render, setRender] = useState(true);
 
   const updateQuiz = async () => {
@@ -91,12 +91,19 @@ export function QuizEditor() {
     setQuizData(questionsArrayCopy);
   }
 
+  const trackOptions = trackList.map((track) => {
+    return <option value={track["trackName"]}>{track["trackName"]}</option>;
+  });
+
   useEffect(() => {
     const getCourseData = async () => {
       const courseData = await getDoc(doc(db, "courses", selectedCourse));
       if (courseData.data != undefined) {
         let data = courseData.get("courseQuestions").slice();
         setQuizData([...data]);
+
+        let tracksdata = courseData.get("courseTracks").slice();
+        setTracksList([...tracksdata]);
       } else {
         console.log("no data");
       }
@@ -190,17 +197,11 @@ export function QuizEditor() {
             </div>
             <div className="row">
               <p className="col-3">track:</p>
-              <p
-                contentEditable="true"
-                suppressContentEditableWarning={true}
-                className="col-6 track"
-              >
-                {question["track"]}
-              </p>
-            </div>
-            <div className="row">
-              <select className="col-6 track">
-                <option value={question["track"]}></option>
+              <select className="col-3 track">
+                <option value={question["track"]} hidden>
+                  {question["track"]}
+                </option>
+                {trackOptions}
               </select>
             </div>
           </div>
